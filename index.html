@@ -13,7 +13,7 @@
 dialog{width:min(490px,calc(100% - 32px));max-height:90vh;border:1px solid var(--ink);border-radius:19px;background:var(--paper);color:var(--ink);padding:23px;box-shadow:5px 5px 0 var(--ink)}dialog::backdrop{background:#35223c88}dialog h2{margin:0 0 10px}form label{display:block;margin:11px 0}input,textarea,select{display:block;width:100%;border:1px solid #ad95a9;border-radius:8px;background:white;padding:7px 10px}textarea{resize:vertical}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.status{color:var(--accent);min-height:1.3em}
 @media(max-width:760px){.wrap{width:calc(100% - 32px)}.hero{grid-template-columns:1fr;gap:25px;padding:35px 0 33px}.art{width:96%;justify-self:center}.desk{grid-template-columns:1fr}.monitor{min-height:195px}.notes{padding:21px}nav div{gap:12px}.section-head{align-items:center}nav{min-height:59px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
-<link rel="stylesheet" href="pop.css">
+<link rel="stylesheet" href="pop.css?v=5">
 <meta name="description" content="Xinyue Sun’s Screen Production 2 portfolio, films, weekly exercises and production documentation.">
 </head>
 <body>
@@ -26,10 +26,10 @@ dialog{width:min(490px,calc(100% - 32px));max-height:90vh;border:1px solid var(-
 </section>
 <div class="tape">FILM · SOUND · RHYTHM · EXPERIMENT</div>
 <section class="section" id="timeline" aria-labelledby="timeline-title">
-<div class="section-head"><div><span class="mono">WEEKLY CUTS</span><h2 id="timeline-title">Weekly exercises</h2></div><button class="pill" id="add">+ Add week</button></div>
+<div class="section-head"><div><span class="mono">WEEKLY CUTS</span><h2 id="timeline-title">Weekly exercises</h2></div></div>
 <p class="hint">Films, storyboards and editing notes, week by week.</p>
 <div class="roll" id="roll"></div>
-<template id="entry-template"><article class="entry"><div class="desk"><div class="monitor"></div><div class="notes"><span class="mono"></span><h3></h3><p></p><div class="controls"><button class="pill" type="button">Edit exercise</button></div></div></div></article></template>
+<template id="entry-template"><article class="entry"><div class="desk"><div class="monitor"></div><div class="notes"><span class="mono"></span><h3></h3><p></p></div></div></article></template>
 </section>
 <section class="other-section" id="assignments" aria-labelledby="assignments-title"><div class="section-head"><h2 id="assignments-title">Assignments</h2></div><div id="assignments-roll"></div></section>
 <section class="other-section" id="other"><div class="section-head"><div><span class="mono">MORE WORK</span><h2>Other exercise</h2></div></div><div id="other-roll"></div></section>
@@ -42,10 +42,7 @@ dialog{width:min(490px,calc(100% - 32px));max-height:90vh;border:1px solid var(-
 <p>In general, this remake has deepened my understanding of editing: it is both a technical practice and an artistic expression. The editor’s responsibility is not only to sort out the materials, but also to convey emotions through the lens, sound, and color based on a deep understanding of the narrative intention of the original. In the future, I hope to continue to hone my post-production skills and participate more actively in the preliminary preparation work.</p></article></section>
 </main>
 <footer><div class="wrap mono">XINYUE SUN / SCREEN PRODUCTION 2 <a href="#" style="float:right">Back to top</a></div><div class="wrap photo-credits">Photography · <a href="https://www.pexels.com/photo/vintage-camera-with-film-rolls-on-blue-surface-32594520/" target="_blank" rel="noopener">Daigoro Folz</a> · Pexels<br>Illustrations · <a href="https://www.opendoodles.com/" target="_blank" rel="noopener">Open Doodles / Pablo Stanley</a> · CC0<br>Software icons · <a href="https://commons.wikimedia.org/wiki/File:Adobe_Premiere_Pro_CC_icon.svg" target="_blank" rel="noopener">Adobe</a> / <a href="https://github.com/simple-icons/simple-icons/blob/develop/icons/nuke.svg" target="_blank" rel="noopener">Nuke via Simple Icons</a></div></footer>
-<dialog id="editor" aria-labelledby="dialog-title"><form id="form"><h2 id="dialog-title"></h2><p class="hint">Edits are saved in this browser.</p>
-<div id="exercise-fields"><label>Week<input name="week" type="number" min="1" max="99"></label><label>Exercise title<input name="title" maxlength="100"></label><label>Video URL<input name="video" type="url" placeholder="YouTube, Vimeo or MP4 URL"></label><label>Editing notes<textarea name="memo" rows="3" maxlength="2000" placeholder="Record your editing choices, experiments and reflections"></textarea></label></div>
-<div id="status" class="status" role="status"></div><div class="actions"><button type="button" id="cancel" class="pill">Cancel</button><button class="pill primary">Save</button></div>
-</form></dialog>
-<script src="portfolio.js" defer></script>
+
+<script src="portfolio.js?v=5" defer></script>
 </body>
 </html>

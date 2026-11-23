@@ -16,26 +16,7 @@ const otherExercises = [
   { title: 'Herframe · The woman horror film festival', video: 'https://screen-production-cutroom.q5x4hsqgf6.chatgpt.site/media/herframe.mp4' },
   { title: 'Food Film Festival with presentation', video: 'https://screen-production-cutroom.q5x4hsqgf6.chatgpt.site/media/food-festival.mp4' }
 ];
-const storageKey = 'cutroom-portfolio-v1';
-let portfolio = { ...defaults, exercises: [...defaults.exercises] };
-try {
-  const saved = JSON.parse(localStorage.getItem(storageKey));
-  if (saved?.profile) portfolio.profile = saved.profile;
-  for (const item of saved?.exercises || []) {
-    if (item.sample) continue;
-    const index = portfolio.exercises.findIndex(({ week }) => week === item.week);
-    if (index >= 0) portfolio.exercises[index] = { ...portfolio.exercises[index], ...item };
-    else portfolio.exercises.push(item);
-  }
-  portfolio.exercises.sort((a, b) => a.week - b.week);
-} catch {
-  // The published portfolio also works without browser storage.
-}
-let selected = portfolio.exercises[0].week;
-let mode;
-const dialog = get('editor');
-const form = get('form');
-const fields = form.elements;
+const portfolio = defaults;
 
 function videoSource(value) {
   if (!value) return null;
@@ -118,12 +99,6 @@ function render() {
     entry.setAttribute('aria-labelledby', title.id);
     entry.querySelector('.mono').textContent = 'WEEK ' + week + (exercise.sample ? ' / Sample exercise' : '');
     entry.querySelector('.notes p').textContent = exercise.memo || (exercise.sample ? 'Add a film and reflect on an editing choice.' : 'Editing notes to come.');
-    const button = entry.querySelector('button');
-    button.setAttribute('aria-label', 'Edit week ' + exercise.week);
-    button.onclick = () => {
-      selected = exercise.week;
-      openEditor('edit');
-    };
     const monitor = entry.querySelector('.monitor');
     monitor.style.setProperty('--swatch', ['#ebe1f1', '#f4e5dc', '#e1e9e2', '#e8e4f1'][index % 4]);
     showMedia(monitor, exercise.video, exercise.image);
@@ -162,61 +137,6 @@ function render() {
   }
   observeEntries();
 }
-
-function openEditor(kind) {
-  mode = kind;
-  const item = portfolio.exercises.find(({ week }) => week === selected);
-  form.reset();
-  get('status').textContent = '';
-  get('dialog-title').textContent = kind === 'add' ? 'Add week' : 'Edit exercise';
-  fields.week.required = true;
-  fields.title.required = true;
-  if (kind === 'edit') {
-    fields.week.value = item.week;
-    fields.title.value = item.title;
-    fields.video.value = item.video ? new URL(item.video, window.location.href).href : '';
-    fields.memo.value = item.memo;
-  } else {
-    const used = new Set(portfolio.exercises.map(({ week }) => week));
-    fields.week.value = Array.from({ length: 99 }, (_, index) => index + 1).find((week) => !used.has(week)) ?? '';
-  }
-  dialog.showModal();
-}
-
-get('add').onclick = () => openEditor('add');
-get('cancel').onclick = () => dialog.close();
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const next = { ...portfolio };
-  let week = selected;
-  {
-    week = Number(fields.week.value);
-    const title = fields.title.value.trim();
-    const video = fields.video.value.trim();
-    const existing = portfolio.exercises.filter((item) => mode !== 'edit' || item.week !== selected);
-    if (!title || existing.some((item) => item.week === week) || (video && !videoSource(video))) {
-      get('status').textContent = !title ? 'Enter an exercise title.' : existing.some((item) => item.week === week) ? 'An exercise already exists for this week.' : 'Enter a valid HTTP or HTTPS video URL.';
-      return;
-    }
-    const original = portfolio.exercises.find((item) => item.week === selected);
-    next.exercises = [...existing, { ...(mode === 'edit' ? original : {}), week, title, video, memo: fields.memo.value.trim() }]
-      .sort((a, b) => a.week - b.week);
-  }
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(next));
-  } catch {
-    get('status').textContent = 'This browser could not save your changes.';
-    return;
-  }
-  portfolio = next;
-  dialog.close();
-  render();
-  {
-    const entry = get('week-' + week);
-    entry.querySelector('button').focus({ preventScroll: true });
-    entry.scrollIntoView({ block: 'nearest' });
-  }
-});
 
 const revealObserver = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
