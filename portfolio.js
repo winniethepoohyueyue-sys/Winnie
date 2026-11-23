@@ -98,7 +98,7 @@ function render() {
     title.textContent = exercise.title;
     entry.setAttribute('aria-labelledby', title.id);
     entry.querySelector('.mono').textContent = 'WEEK ' + week + (exercise.sample ? ' / Sample exercise' : '');
-    entry.querySelector('.notes p').textContent = exercise.memo || (exercise.sample ? 'Add a film and reflect on an editing choice.' : 'Editing notes to come.');
+    entry.querySelector('.notes p').remove();
     const monitor = entry.querySelector('.monitor');
     monitor.style.setProperty('--swatch', ['#ebe1f1', '#f4e5dc', '#e1e9e2', '#e8e4f1'][index % 4]);
     showMedia(monitor, exercise.video, exercise.image);
