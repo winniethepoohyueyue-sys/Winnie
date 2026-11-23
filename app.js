@@ -2,7 +2,7 @@ const get = (id) => document.getElementById(id);
 const defaults = {
   exercises: [
     { week: 1, title: 'Week 1 exercise', video: 'https://screen-production-cutroom.q5x4hsqgf6.chatgpt.site/media/week1.mp4', memo: '' },
-    { week: 2, title: 'Storyboard', video: '', image: '/week2-storyboard.png', memo: '' },
+    { week: 2, title: 'Storyboard', video: '', image: 'week2-storyboard.png', memo: '' },
     { week: 3, title: 'POV exercise', video: 'https://screen-production-cutroom.q5x4hsqgf6.chatgpt.site/media/week3.mp4', memo: '' },
     { week: 4, title: 'Sound', video: 'https://screen-production-cutroom.q5x4hsqgf6.chatgpt.site/media/week4.mp4', memo: '' }
   ],
